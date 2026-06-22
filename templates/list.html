@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Currículos Cadastrados - CurriculumHub{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Currículos Cadastrados</h1>
+        <p class="page-subtitle">Visualize a listagem dos profissionais cadastrados no sistema.</p>
+    </div>
+    <a href="{{ url_for('create_curriculo') }}" class="btn btn-primary">
+        + Cadastrar Novo Currículo
+    </a>
+</div>
+
+{% if curriculos %}
+<div class="table-container">
+    <table class="curriculo-table">
+        <thead>
+            <tr>
+                <th>Nome Completo</th>
+                <th>Endereço de E-mail</th>
+                <th class="actions-col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in curriculos %}
+            <tr>
+                <td class="name-cell">
+                    <div class="avatar-circle">{{ c.nome[0] | upper }}</div>
+                    <a href="{{ url_for('view_curriculo', id=c.id) }}" class="curriculo-name-link" title="Visualizar currículo completo de {{ c.nome }}">
+                        {{ c.nome }}
+                    </a>
+                </td>
+                <td class="email-cell">
+                    <span class="email-text">{{ c.email }}</span>
+                </td>
+                <td class="actions-cell">
+                    <a href="{{ url_for('view_curriculo', id=c.id) }}" class="btn btn-secondary btn-sm">
+                        🔍 Ver Completo
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">📁</div>
+    <h3>Nenhum currículo encontrado</h3>
+    <p>Cadastre um novo currículo para começar a gerenciar o seu banco de talentos.</p>
+    <a href="{{ url_for('create_curriculo') }}" class="btn btn-primary mt-3">
+        Cadastrar Primeiro Currículo
+    </a>
+</div>
+{% endif %}
+{% endblock %}

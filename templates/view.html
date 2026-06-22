@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Consulta de Currículo: {{ curriculo.nome }} - CurriculumHub{% endblock %}
+
+{% block content %}
+<div class="back-link-container">
+    <a href="{{ url_for('list_curriculos') }}" class="back-link">← Voltar para listagem</a>
+</div>
+
+<div class="details-card">
+    <div class="details-header">
+        <div class="details-avatar">{{ curriculo.nome[0] | upper }}</div>
+        <div class="details-title-area">
+            <span class="category-tag">Perfil Profissional</span>
+            <h2>{{ curriculo.nome }}</h2>
+            <p class="details-meta">ID do Registro: #{{ curriculo.id }}</p>
+        </div>
+    </div>
+
+    <div class="details-grid">
+        <div class="detail-item">
+            <span class="detail-label">Endereço de E-mail</span>
+            <span class="detail-value">
+                <a href="mailto:{{ curriculo.email }}" class="contact-link">{{ curriculo.email }}</a>
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Telefone</span>
+            <span class="detail-value">
+                {% if curriculo.telefone %}
+                    {{ curriculo.telefone }}
+                {% else %}
+                    <span class="text-muted">Não informado</span>
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="detail-item col-span-2">
+            <span class="detail-label">Endereço WEB (Website)</span>
+            <span class="detail-value">
+                {% if curriculo.site_url %}
+                    <!-- Rel="noopener noreferrer" is a security best practice for outbound links -->
+                    <a href="{{ curriculo.site_url }}" target="_blank" rel="noopener noreferrer" class="contact-link web-link">
+                        {{ curriculo.site_url }} ↗
+                    </a>
+                {% else %}
+                    <span class="text-muted">Não informado</span>
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="detail-item col-span-2 text-section">
+            <span class="detail-label">Experiência Profissional</span>
+            <!-- Preserve formatting and line breaks safely. Jinja2 automatically escapes line breaks and content. -->
+            <div class="experience-box">
+                {{ curriculo.experiencia_profissional | replace('\n', '<br>') | trim | safe }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

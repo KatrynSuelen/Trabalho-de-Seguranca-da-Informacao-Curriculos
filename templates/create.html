@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Novo Currículo - CurriculumHub{% endblock %}
+
+{% block content %}
+<div class="back-link-container">
+    <a href="{{ url_for('list_curriculos') }}" class="back-link">← Voltar para listagem</a>
+</div>
+
+<div class="form-card">
+    <div class="form-header">
+        <h2>Novo Currículo</h2>
+        <p>Preencha os dados abaixo de forma segura para cadastrar o perfil profissional.</p>
+    </div>
+    
+    <form method="POST" action="{{ url_for('create_curriculo') }}" novalidate>
+        <!-- CSRF Token (Crucial for session hijacking, CSRF, and history manipulation prevention) -->
+        {{ form.csrf_token }}
+        
+        <div class="form-grid">
+            <!-- Nome da pessoa -->
+            <div class="form-group {% if form.nome.errors %}has-error{% endif %}">
+                <label for="nome" class="form-label">Nome Completo <span class="required">*</span></label>
+                {{ form.nome(class="form-control", placeholder="Ex: Maria Souza Silva") }}
+                {% for error in form.nome.errors %}
+                    <span class="error-feedback">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Endereço de e-mail -->
+            <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                <label for="email" class="form-label">Endereço de E-mail <span class="required">*</span></label>
+                {{ form.email(class="form-control", placeholder="Ex: maria.silva@email.com") }}
+                {% for error in form.email.errors %}
+                    <span class="error-feedback">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Telefone (Opcional) -->
+            <div class="form-group {% if form.telefone.errors %}has-error{% endif %}">
+                <label for="telefone" class="form-label">Telefone <span class="optional">(Opcional)</span></label>
+                {{ form.telefone(class="form-control", placeholder="Ex: (11) 99999-9999") }}
+                {% for error in form.telefone.errors %}
+                    <span class="error-feedback">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Endereço WEB (Opcional) -->
+            <div class="form-group {% if form.site_url.errors %}has-error{% endif %}">
+                <label for="site_url" class="form-label">Endereço WEB / Website <span class="optional">(Opcional)</span></label>
+                {{ form.site_url(class="form-control", placeholder="Ex: https://www.linkedin.com/in/mariasilva") }}
+                {% for error in form.site_url.errors %}
+                    <span class="error-feedback">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <!-- Experiência profissional -->
+            <div class="form-group col-span-2 {% if form.experiencia_profissional.errors %}has-error{% endif %}">
+                <label for="experiencia_profissional" class="form-label">Experiência Profissional <span class="required">*</span></label>
+                {{ form.experiencia_profissional(class="form-control form-textarea", rows="8", placeholder="Descreva os principais projetos, cargos anteriores e qualificações profissionais relevantes...") }}
+                {% for error in form.experiencia_profissional.errors %}
+                    <span class="error-feedback">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('list_curriculos') }}" class="btn btn-text">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar Currículo</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
