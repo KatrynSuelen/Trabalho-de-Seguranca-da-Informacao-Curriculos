@@ -16,9 +16,9 @@ def setup_database():
         
         with connection.cursor() as cursor:
             # Create database if it doesn't exist, handling spaces and accents using backticks
-            sql = "CREATE DATABASE IF NOT EXISTS `sistema_currículos` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+            sql = "CREATE DATABASE IF NOT EXISTS `sistema_curriculos` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
             cursor.execute(sql)
-            print("Banco de dados `sistema currículos` verificado/criado com sucesso!")
+            print("Banco de dados `sistema_curriculos` verificado/criado com sucesso!")
             
         connection.close()
         
