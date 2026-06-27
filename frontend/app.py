@@ -1,8 +1,8 @@
 import urllib.parse
 from flask import Flask, render_template, redirect, url_for, flash, request, make_response
-from config import Config
-from models import db, Curriculo
-from forms import CurriculoForm
+from frontend.config import Config
+from frontend.models import db, Curriculo
+from frontend.forms import CurriculoForm
 from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)

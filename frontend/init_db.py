@@ -1,7 +1,7 @@
 import pymysql
 import urllib.parse
-from config import Config
-from app import app, db
+from frontend.config import Config
+from frontend.app import app, db
 
 def setup_database():
     print("Iniciando verificação/criação do Banco de Dados...")
